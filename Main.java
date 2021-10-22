@@ -12,7 +12,7 @@ public class Main {
 
 		System.out.println("//////////////////////////");
 		System.out.println(" Agenda de clube de games ");
-		System.out.println("Escolha uma opÁ„o para:");
+		System.out.println("Escolha uma op√ß√£o para:");
 		System.out.println("1- Cadastrar um game:");
 		System.out.println("2- Cosultar um game:");
 		System.out.println("3- Consultar todos Games:");
@@ -50,10 +50,10 @@ public class Main {
 		System.out.println("Informe o nome do game:");
 		novoGame.setNome(scannerGame.nextLine());
 
-		System.out.println("Informe a data que o game ocorrer·: (formato dd/MM/yyy sem barras");
+		System.out.println("Informe a data que o game ocorrer√°: (formato dd/MM/yyyy sem barras");
 //		novoGame.setData(LocalDate.parse(scannerGame.nextLine()));
 
-		System.out.println("Informe o horario que o game ocorrer·");
+		System.out.println("Informe o hor√°rio que o game ocorrer√°");
 		novoGame.setHorario(LocalTime.parse(scannerGame.nextLine()));
 
 		System.out.println("Informe a Categoria:");
@@ -83,7 +83,7 @@ public class Main {
 		case 6:
 			return CategoriaEnum.RTS;
 		default:
-			System.out.println("Valor invalido");
+			System.out.println("Valor inv√°lido");
 			break;
 		}
 		return null;

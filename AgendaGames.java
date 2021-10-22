@@ -9,7 +9,7 @@ public class AgendaGames implements AgendaGamesImpl {
 
 	@Override
 	public void inserirGame(Game game) {
-		Int hash = GameHelper.getGameHash(game.getNome());
+		int hash = GameHelper.getGameHash(game.getNome());
 
 		if (gameHashTable[hash] == null) {
 			gameHashTable[hash] = game;
@@ -22,16 +22,33 @@ public class AgendaGames implements AgendaGamesImpl {
 	}
 
 	@Override
-	public void removerGame(Game game) {
-		Int hash = GameHelper.getGameHash(game.getNome());
+	public void removerGame(String gameNome) {
+		int hash = GameHelper.getGameHash(gameNome);
 
 		if (gameHashTable[hash] != null) {
+			Game game = consultarGame(gameNome);
+			Game atual = gameHashTable[hash];
+			Game anterior = null;
 
+			while (head != null) {
+				if (game.compareTo(atual) == 0) {
+					if (anterior != null) {
+						anterior.setProximoGame(game);
+					} else {
+						gameHashTable[hash] = null;
+					}
+
+					return;
+				}
+
+				anterior = atual;
+				atual = atual.getProximoGame();
+			}
 		}
 	}
 
 	@Override
-	public List<Game> consultarGame(String nome, LocalDate Data) {
+	public Game consultarGame(String nome) {
 		Int hash = GameHelper.getGameHash(nome);
 
 		// TODO Auto-generated method stub
@@ -39,15 +56,7 @@ public class AgendaGames implements AgendaGamesImpl {
 	}
 
 	@Override
-	public List<Game> consultarGame(String nome) {
-		Int hash = GameHelper.getGameHash(nome);
-
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Game> consultarGamePorData(LocalDate data) {
+	public List<Game> consultarGamesPorData(LocalDate data) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -56,12 +65,6 @@ public class AgendaGames implements AgendaGamesImpl {
 	public Game consultarGamePorLink(String link) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public boolean isGameMesmaPosicao() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -76,4 +79,9 @@ public class AgendaGames implements AgendaGamesImpl {
 		return null;
 	}
 
+	@Override
+	public boolean isGameMesmaPosicao() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

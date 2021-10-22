@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
-public class Game {
+public class Game implements Comparable<Game> {
 
 	private String nome;
 	private LocalDate data;
@@ -58,11 +58,16 @@ public class Game {
 		this.link = link;
 	}
 
-	public Game getProximoGame(){
+	public Game getProximoGame() {
 		return proximoGame;
 	}
 
 	public void setProximoGame(Game game) {
 		this.proximoGame = game;
+	}
+
+	@Override
+	public int compareTo(Game other) {
+		return this.nome.compareTo(other.getNome());
 	}
 }

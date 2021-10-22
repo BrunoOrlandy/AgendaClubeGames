@@ -7,27 +7,25 @@ public interface AgendaGamesImpl {
 
 	void inserirGame(Game game);
 
-	void removerGame(Game game);
+	void removerGame(String gameNome);
 
-	List<Game> consultarGame(String nome, LocalDate Data);
-
-	List<Game> consultarGame(String nome);
-
-	List<Game> consultarGamePorData(LocalDate data);
-
-	Game consultarGamePorLink(String link);
-
-	boolean isGameMesmaPosicao();
+	Game consultarGame(String nome);
 
 	List<Game> consultarTodosGamesOrdenado();
-
+	
 	List<Game> consultarTodos();
+	
+	List<Game> consultarGamesPorData(LocalDate data);
+	
+	Game consultarGamePorLink(String link);
+	
+	boolean isGameMesmaPosicao();
 
 	// List<Game> likeGame
 	// informado "Lo" busca todos os games que tem
 
 	// List<Game> consultarGamesAcontecendo
-	// data atual, verifica se o game ja aconteceu ou não
+	// data atual, verifica se o game ja aconteceu ou nï¿½o
 
 	// List<Game> consultarGamesHoje
 	// data atual e hora atual
