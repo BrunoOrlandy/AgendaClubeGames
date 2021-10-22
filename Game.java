@@ -6,7 +6,6 @@ import java.util.UUID;
 
 public class Game {
 
-	private UUID id;
 	private String nome;
 	private LocalDate data;
 	private LocalDateTime horario;
@@ -14,12 +13,8 @@ public class Game {
 	private String link;
 
 	private Game proximoGame;
-	private int posicao;
 
-	public Game(Game proximoGame, int posicao) {
-		this.id = UUID.randomUUID();
-		this.proximoGame = proximoGame;
-		this.posicao = 0;
+	public Game() {
 	}
 
 	public String getNome() {
@@ -62,4 +57,11 @@ public class Game {
 		this.link = link;
 	}
 
+	public Game getProximoGame(){
+		return proximoGame;
+	}
+
+	public void setProximoGame(Game game) {
+		this.proximoGame = game;
+	}
 }
