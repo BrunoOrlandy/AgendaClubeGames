@@ -9,7 +9,7 @@ public interface AgendaGamesImpl {
 
 	void removerGame(String gameNome);
 
-	Game consultarGame(String nome);
+	Game consultarGame(String gameNome);
 
 	List<Game> consultarTodosGamesOrdenado();
 	
@@ -17,10 +17,8 @@ public interface AgendaGamesImpl {
 	
 	List<Game> consultarGamesPorData(LocalDate data);
 	
-	Game consultarGamePorLink(String link);
+	List<Game> consultarGamesPorLink(String link);
 	
-	boolean isGameMesmaPosicao();
-
 	// List<Game> likeGame
 	// informado "Lo" busca todos os games que tem
 

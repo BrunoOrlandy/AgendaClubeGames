@@ -3,9 +3,9 @@ package AgendaClubeGames;
 import java.util.Arrays;
 import java.util.List;
 
-// pode ser criada uma nova lista que iniciar com valores estaticos
-// e contem a opÁ„o "outros" ao selecionar outros 
-// recebe um nome informado pelo usuario e È adicionado na lista
+// pode ser criada uma nova lista que iniciar com valores est√°ticos
+// e cont√©m a op√ß√£o "outros" ao selecionar outros 
+// recebe um nome informado pelo usuario e √© adicionado na lista
 // para poder ser selecionado quando for cadastrar uma novo game 
 
 public enum CategoriaEnum {

@@ -1,3 +1,5 @@
+package AgendaClubeGames.Helpers;
+
 import java.text.Normalizer;
 
 public class StringHelper {

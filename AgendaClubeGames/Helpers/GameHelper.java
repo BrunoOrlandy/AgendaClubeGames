@@ -1,3 +1,5 @@
+package AgendaClubeGames.Helpers;
+
 public class GameHelper {
     public static int getGameHash(String gameNome) {
         gameNome = StringHelper.removeDiacritics(gameNome);
