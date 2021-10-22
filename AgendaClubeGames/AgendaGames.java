@@ -151,16 +151,39 @@ public class AgendaGames implements AgendaGamesImpl {
 			while (endGame != null) {
 				endGame = endGame.getProximoGame();
 			}
+			this.ordenar(startGame, endGame);
 
-			this.ordernar(startGame, endGame);
+			Game game = gameHashTable[i];
+			while (game != null) {
+				try {
+					Game gameSemEncadeamento = (Game) game.clone();
+					gameSemEncadeamento.setProximoGame(null);
+					games.add(gameSemEncadeamento);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				game = game.getProximoGame();
+			}
 		}
 
 		return games;
 	}
 
-	// private List<Game> ordernarComQuickSort() {
+	private void ordenar(Game startGame, Game endGame) {
+		if (startGame == null || startGame == endGame || startGame == endGame.getProximoGame()) {
+			return;
+		}
 
-	// }
+		Game pivo = particionarLista(startGame, endGame);
+		this.ordenar(startGame, pivo);
+
+		if (pivo != null && pivo == startGame) {
+			this.ordenar(pivo.getProximoGame(), endGame);
+		} else if (pivo != null && pivo.getProximoGame() != null) {
+			this.ordenar(pivo.getProximoGame().getProximoGame(), endGame);
+		}
+	}
 
 	private Game particionarLista(Game startGame, Game endGame) {
 		if (startGame == endGame || startGame == null || endGame == null) {
@@ -187,21 +210,6 @@ public class AgendaGames implements AgendaGamesImpl {
 		endGame.setNome(temp);
 
 		return pivo;
-	}
-
-	private void ordenar(Game startGame, Game endGame) {
-		if (startGame == null || startGame == endGame || startGame == endGame.getProximoGame()) {
-			return;
-		}
-
-		Game pivo = particionarLista(startGame, endGame);
-		this.ordenar(startGame, pivo);
-
-		if (pivo != null && pivo == startGame) {
-			this.ordenar(pivo.getProximoGame(), endGame);
-		} else if (pivo != null && pivo.getProximoGame() != null) {
-			this.ordenar(pivo.getProximoGame().getProximoGame(), endGame);
-		}
 	}
 
 	@Override
