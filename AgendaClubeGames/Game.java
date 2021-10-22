@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
-public class Game implements Comparable<Game> {
+public class Game implements Comparable<Game>, Cloneable {
 
 	private String nome;
 	private LocalDate data;
@@ -64,6 +64,11 @@ public class Game implements Comparable<Game> {
 
 	public void setProximoGame(Game game) {
 		this.proximoGame = game;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 
 	@Override

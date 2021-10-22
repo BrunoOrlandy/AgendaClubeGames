@@ -16,10 +16,16 @@ public class AgendaGames implements AgendaGamesImpl {
 		if (gameHashTable[hash] == null) {
 			gameHashTable[hash] = game;
 		} else {
-			Game head = gameHashTable[hash];
-			game.setProximoGame(head);
+			Game gameJaExistente = this.consultarGame(game.getNome());
 
-			gameHashTable[hash] = game;
+			if (gameJaExistente == null) {
+				Game head = gameHashTable[hash];
+				game.setProximoGame(head);
+
+				gameHashTable[hash] = game;
+			} else {
+				System.err.println("Já existe um game com este nome!");
+			}
 		}
 	}
 
@@ -32,7 +38,7 @@ public class AgendaGames implements AgendaGamesImpl {
 			Game head = gameHashTable[hash];
 			Game atual = head;
 			Game anterior = null;
-			Game proximo = atual.getProximoGame();
+			Game proximo = null;
 
 			while (atual != null && game != null) {
 				if (game.compareTo(atual) == 0) {
@@ -40,8 +46,12 @@ public class AgendaGames implements AgendaGamesImpl {
 						anterior.setProximoGame(proximo);
 
 						gameHashTable[hash] = head;
+
+						System.out.println("Game removido com sucesso!");
 					} else {
 						gameHashTable[hash] = null;
+
+						System.out.println("Game removido com sucesso!");
 					}
 
 					return;
@@ -83,7 +93,13 @@ public class AgendaGames implements AgendaGamesImpl {
 			Game game = gameHashTable[i];
 			while (game != null) {
 				if (game.getData().equals(data)) {
-					games.add(game);
+					try {
+						Game gameSemEncadeamento = (Game) game.clone();
+						gameSemEncadeamento.setProximoGame(null);
+						games.add(gameSemEncadeamento);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 
 				game = game.getProximoGame();
@@ -105,7 +121,13 @@ public class AgendaGames implements AgendaGamesImpl {
 			Game game = gameHashTable[i];
 			while (game != null) {
 				if (game.getLink().equals(link)) {
-					games.add(game);
+					try {
+						Game gameSemEncadeamento = (Game) game.clone();
+						gameSemEncadeamento.setProximoGame(null);
+						games.add(gameSemEncadeamento);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 
 				game = game.getProximoGame();
@@ -127,7 +149,13 @@ public class AgendaGames implements AgendaGamesImpl {
 
 			Game game = gameHashTable[i];
 			while (game != null) {
-				games.add(game);
+				try {
+					Game gameSemEncadeamento = (Game) game.clone();
+					gameSemEncadeamento.setProximoGame(null);
+					games.add(gameSemEncadeamento);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
 				game = game.getProximoGame();
 			}
@@ -147,7 +175,13 @@ public class AgendaGames implements AgendaGamesImpl {
 
 			Game game = gameHashTable[i];
 			while (game != null) {
-				games.add(game);
+				try {
+					Game gameSemEncadeamento = (Game) game.clone();
+					gameSemEncadeamento.setProximoGame(null);
+					games.add(gameSemEncadeamento);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
 				game = game.getProximoGame();
 			}

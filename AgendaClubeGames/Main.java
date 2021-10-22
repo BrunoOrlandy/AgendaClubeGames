@@ -1,8 +1,8 @@
 package AgendaClubeGames;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -15,33 +15,42 @@ public class Main {
 		Game lol = new Game();
 		lol.setCategoria(CategoriaEnum.MMORPG);
 		lol.setLink("https://lolesports.com/%22");
-		lol.setNome("Worlds 2021");
+		lol.setData(LocalDate.now());
+		lol.setHorario(LocalTime.parse("12:00"));
+		lol.setNome("%Worlds 2021");
 
-		agendaOperacoes.inserirGame(lol);
-		
 		Game lol2 = new Game();
 		lol2.setCategoria(CategoriaEnum.MMORPG);
+		lol2.setData(LocalDate.now());
+		lol2.setHorario(LocalTime.parse("12:00"));
 		lol2.setLink("https://lolesports.com/%22");
-		lol2.setNome("Worlds 2020");
-
-		agendaOperacoes.inserirGame(lol2);
-		agendaOperacoes.removerGame("Worlds 2021");
+		lol2.setNome("ÁWorlds 2020");
 		
 		Game ds = new Game();
 		ds.setCategoria(CategoriaEnum.RPG);
 		ds.setLink("https://www.brasilgameshow.com.br/darkSouls%22");
 		ds.setNome("Dark Souls");
-		agendaOperacoes.inserirGame(ds);
+		ds.setData(LocalDate.now().plusDays(7));
+		ds.setHorario(LocalTime.parse("20:00"));
 		
 		Game age = new Game();
 		age.setCategoria(CategoriaEnum.RTS);
 		age.setLink("https://www.brasilgameshow.com.br/ageOfEmpires2%22");
 		age.setNome("Age 2021");
-		agendaOperacoes.inserirGame(age);
+		age.setData(LocalDate.now());
+        age.setHorario(LocalTime.parse("14:00"));
 		
-		List<Game> consultados = agendaOperacoes.consultarTodos();
-		Game porNome = agendaOperacoes.consultarGame("Dark Souls");
+		agendaOperacoes.inserirGame(lol);
+		agendaOperacoes.inserirGame(lol2);
+		agendaOperacoes.inserirGame(ds);
+		agendaOperacoes.inserirGame(age);
+		agendaOperacoes.removerGame("Age 2021");
 
+		Game porNome = agendaOperacoes.consultarGame("Dark Souls");
+		List<Game> consultados = agendaOperacoes.consultarTodos();
+		List<Game> porLink = agendaOperacoes.consultarGamesPorLink("https://lolesports.com/%22");
+		List<Game> porData = agendaOperacoes.consultarGamesPorData(LocalDate.now().plusDays(7));
+		
 		// System.out.println("//////////////////////////");
 		// System.out.println(" Agenda de clube de games ");
 		// System.out.println("Escolha uma opção para:");
