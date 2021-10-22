@@ -1,6 +1,7 @@
 package AgendaClubeGames;
 
 import java.util.Arrays;
+import java.util.List;
 
 // pode ser criada uma nova lista que iniciar com valores estaticos
 // e contem a opção "outros" ao selecionar outros 
@@ -21,9 +22,25 @@ public enum CategoriaEnum {
 		this.name = name;
 	}
 
-	public String getListaCategoriaEnum() {
-		return "";
-//		return Arrays.asList();
+	public static void getListaCategoriaEnum() {
+		Arrays.asList(CategoriaEnum.values())
+				.forEach(categoria -> System.out.println(categoria.getId() + "- " + categoria.getName()));
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

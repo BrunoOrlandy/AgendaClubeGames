@@ -2,6 +2,7 @@ package AgendaClubeGames;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.UUID;
 
 public class Game {
@@ -9,12 +10,16 @@ public class Game {
 	private UUID id;
 	private String nome;
 	private LocalDate data;
-	private LocalDateTime horario;
+	private LocalTime horario;
 	private CategoriaEnum categoria;
 	private String link;
 
 	private Game proximoGame;
 	private int posicao;
+
+	public Game() {
+		this.id = UUID.randomUUID();
+	}
 
 	public Game(Game proximoGame, int posicao) {
 		this.id = UUID.randomUUID();
@@ -38,11 +43,11 @@ public class Game {
 		this.data = data;
 	}
 
-	public LocalDateTime getHorario() {
+	public LocalTime getHorario() {
 		return horario;
 	}
 
-	public void setHorario(LocalDateTime horario) {
+	public void setHorario(LocalTime horario) {
 		this.horario = horario;
 	}
 

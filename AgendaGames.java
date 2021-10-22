@@ -10,7 +10,6 @@ public class AgendaGames implements AgendaGamesImpl {
 
 	@Override
 	public void inserirGame(Game game) {
-		// TODO Auto-generated method stub
 
 	}
 
