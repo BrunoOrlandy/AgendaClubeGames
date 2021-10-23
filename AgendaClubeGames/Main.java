@@ -2,94 +2,55 @@ package AgendaClubeGames;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.List;
 
 public class Main {
 
-	public static AgendaGames agendaOperacoes;
+	public static AgendaGames agendaOperacoes = new AgendaGames();
 
 	public static void main(String[] args) {
-		agendaOperacoes = new AgendaGames();
 
-		Game lol = new Game();
-		lol.setCategoria(CategoriaEnum.MMORPG);
-		lol.setLink("https://lolesports.com/%22");
-		lol.setData(LocalDate.now());
-		lol.setHorario(LocalTime.parse("12:00"));
-		lol.setNome("%Worlds 2021");
+		int opcao = 10;
+		Scanner entrada = new Scanner(System.in);
+		Main m = new Main();
+		do {
+			printMenu();
 
-		Game lol2 = new Game();
-		lol2.setCategoria(CategoriaEnum.MMORPG);
-		lol2.setData(LocalDate.now());
-		lol2.setHorario(LocalTime.parse("12:00"));
-		lol2.setLink("https://lolesports.com/%22");
-		lol2.setNome("ÁWorlds 2020");
+			int op = entrada.nextInt();
+			switch (op) {
+			case 1:
+				agendaOperacoes.inserirGame(menuCadastrarGame());
+				break;
+			case 2:
+				System.out.println("Todos os games ineridos:");
+				printDados(agendaOperacoes.consultarTodos());
+				break;
+			case 3:
+				System.out.println("Informe o link para pesquisar o game:");
+				String linkInformado = entrada.nextLine();
+				printDados(agendaOperacoes.consultarGamesPorLink(linkInformado));
+				break;
+			case 4:
+				System.out.println("Informe a data do game:");
+				String dataGame = entrada.nextLine();
+				agendaOperacoes.consultarGamesPorData(LocalDate.parse(dataGame));
+				break;
+			case 5:
+				System.out.println("Informe o nome do game a ser removido:");
+				String nomeGame = entrada.nextLine();
+				agendaOperacoes.removerGame(nomeGame);
+				return;
+			case 0:
+				System.out.println("Fechando agenda de games");
+				System.exit(0);
+				break;
+			default:
+				printMenu();
+			}
 
-		Game ds2 = new Game();
-		ds2.setCategoria(CategoriaEnum.RPG);
-		ds2.setLink("https://www.brasilgameshow.com.br/darkSouls%22");
-		ds2.setNome("Dark Souls 2");
-		ds2.setData(LocalDate.now().plusDays(7));
-		ds2.setHorario(LocalTime.parse("20:00"));
-
-		Game ds = new Game();
-		ds.setCategoria(CategoriaEnum.RPG);
-		ds.setLink("https://www.brasilgameshow.com.br/darkSouls%22");
-		ds.setNome("Dark Souls");
-		ds.setData(LocalDate.now().plusDays(7));
-		ds.setHorario(LocalTime.parse("20:00"));
-		
-		Game age = new Game();
-		age.setCategoria(CategoriaEnum.RTS);
-		age.setLink("https://www.brasilgameshow.com.br/ageOfEmpires2%22");
-		age.setNome("Age 2021");
-		age.setData(LocalDate.now());
-        age.setHorario(LocalTime.parse("14:00"));
-		
-		agendaOperacoes.inserirGame(lol);
-		agendaOperacoes.inserirGame(lol2);
-		agendaOperacoes.inserirGame(ds);
-		agendaOperacoes.inserirGame(ds2);
-		agendaOperacoes.inserirGame(age);
-		agendaOperacoes.removerGame("Age 2021");
-
-		Game porNome = agendaOperacoes.consultarGame("Dark Souls");
-		List<Game> consultados = agendaOperacoes.consultarTodos();
-		List<Game> consulsstados = agendaOperacoes.consultarTodosGamesOrdenado();
-		List<Game> porLink = agendaOperacoes.consultarGamesPorLink("https://lolesports.com/%22");
-		List<Game> porData = agendaOperacoes.consultarGamesPorData(LocalDate.now().plusDays(7));
-		
-		// System.out.println("//////////////////////////");
-		// System.out.println(" Agenda de clube de games ");
-		// System.out.println("Escolha uma opção para:");
-		// System.out.println("1- Cadastrar um game:");
-		// System.out.println("2- Cosultar um game:");
-		// System.out.println("3- Consultar todos Games:");
-		// System.out.println("4- Remover um game da agenda:");
-		// System.out.println("0- Sair");
-		// System.out.println("//////////////////////////");
-
-		// Scanner entrada = new Scanner(System.in);
-		// int opcao = entrada.nextInt();
-		// switch (opcao) {
-		// case 1:
-		// agendaOperacoes.inserirGame(menuCadastrarGame());
-		// break;
-		// case 2:
-		// // agendaOperacoes.inserirGame();
-		// break;
-		// case 3:
-		// // agendaOperacoes.inserirGame();
-		// break;
-		// case 4:
-		// // agendaOperacoes.inserirGame();
-		// break;
-		// case 0:
-		// System.out.println("Fechando agenda de games");
-		// System.exit(0);
-		// break;
-		// }
+		} while (opcao != 0);
 	}
 
 	public static Game menuCadastrarGame() {
@@ -100,42 +61,60 @@ public class Main {
 		System.out.println("Informe o nome do game:");
 		novoGame.setNome(scannerGame.nextLine());
 
-		System.out.println("Informe a data que o game ocorrerá: (formato dd/MM/yyyy sem barras");
-		// novoGame.setData(LocalDate.parse(scannerGame.nextLine()));
+		System.out.println("Informe a data que o game ocorrerá: (dd/MM/yyyy)");
+		novoGame.setData(LocalDate.parse(scannerGame.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
 		System.out.println("Informe o horário que o game ocorrerá");
 		novoGame.setHorario(LocalTime.parse(scannerGame.nextLine()));
 
-		System.out.println("Informe a Categoria:");
-		// mostrarMenuCategoria(scannerGame);
-		// novoGame.setHorario(LocalTime.parse(scannerGame.nextLine()));
+		System.out.println("Informe a categoria:");
+		CategoriaEnum.getListaCategoriaEnum();
+		novoGame.setCategoria(mostrarMenuCategoria(scannerGame.nextLine()));
 
 		System.out.println("Informe o link do evento");
-		novoGame.setLink(scannerGame.nextLine());
+		String link = scannerGame.nextLine();
+		novoGame.setLink(link);
+
+		System.out.println("Game :" + novoGame.getNome() + " foi cadastrado");
 		return novoGame;
 	}
 
-	public static CategoriaEnum mostrarMenuCategoria(Scanner scannerGame) {
+	public static CategoriaEnum mostrarMenuCategoria(String op) {
 
-		CategoriaEnum.getListaCategoriaEnum();
-
-		switch (scannerGame.nextInt()) {
-		case 1:
+		switch (op) {
+		case "1":
 			return CategoriaEnum.FPS;
-		case 2:
+		case "2":
 			return CategoriaEnum.MMO;
-		case 3:
+		case "3":
 			return CategoriaEnum.MMORPG;
-		case 4:
+		case "4":
 			return CategoriaEnum.MOBA;
-		case 5:
+		case "5":
 			return CategoriaEnum.RPG;
-		case 6:
+		case "6":
 			return CategoriaEnum.RTS;
-		default:
-			System.out.println("Valor inválido");
-			break;
 		}
+
 		return null;
+	}
+
+	public static void printDados(List<Game> gamesConsultados) {
+		for (Game game : gamesConsultados) {
+			System.out.println(game.toString());
+		}
+	}
+
+	public static void printMenu() {
+		System.out.println("//////////////////////////");
+		System.out.println(" Agenda de clube de games ");
+		System.out.println("Escolha uma opção:");
+		System.out.println("1- Cadastrar um game:");
+		System.out.println("2- Consultar todos Games:");
+		System.out.println("3- Cosultar game por link:");
+		System.out.println("4- Consultar todos os game por data:");
+		System.out.println("5- Remover game por nome:");
+		System.out.println("0- Sair");
+		System.out.println("//////////////////////////");
 	}
 }
