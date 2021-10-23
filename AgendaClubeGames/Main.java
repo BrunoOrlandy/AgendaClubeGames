@@ -25,7 +25,14 @@ public class Main {
 		lol2.setHorario(LocalTime.parse("12:00"));
 		lol2.setLink("https://lolesports.com/%22");
 		lol2.setNome("ÁWorlds 2020");
-		
+
+		Game ds2 = new Game();
+		ds2.setCategoria(CategoriaEnum.RPG);
+		ds2.setLink("https://www.brasilgameshow.com.br/darkSouls%22");
+		ds2.setNome("Dark Souls 2");
+		ds2.setData(LocalDate.now().plusDays(7));
+		ds2.setHorario(LocalTime.parse("20:00"));
+
 		Game ds = new Game();
 		ds.setCategoria(CategoriaEnum.RPG);
 		ds.setLink("https://www.brasilgameshow.com.br/darkSouls%22");
@@ -43,11 +50,13 @@ public class Main {
 		agendaOperacoes.inserirGame(lol);
 		agendaOperacoes.inserirGame(lol2);
 		agendaOperacoes.inserirGame(ds);
+		agendaOperacoes.inserirGame(ds2);
 		agendaOperacoes.inserirGame(age);
 		agendaOperacoes.removerGame("Age 2021");
 
 		Game porNome = agendaOperacoes.consultarGame("Dark Souls");
 		List<Game> consultados = agendaOperacoes.consultarTodos();
+		List<Game> consulsstados = agendaOperacoes.consultarTodosGamesOrdenado();
 		List<Game> porLink = agendaOperacoes.consultarGamesPorLink("https://lolesports.com/%22");
 		List<Game> porData = agendaOperacoes.consultarGamesPorData(LocalDate.now().plusDays(7));
 		

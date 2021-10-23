@@ -49,7 +49,7 @@ public class AgendaGames implements AgendaGamesImpl {
 
 						System.out.println("Game removido com sucesso!");
 					} else {
-						gameHashTable[hash] = null;
+						gameHashTable[hash] = head.getProximoGame();
 
 						System.out.println("Game removido com sucesso!");
 					}
@@ -146,33 +146,40 @@ public class AgendaGames implements AgendaGamesImpl {
 				continue;
 			}
 
-			Game startGame = gameHashTable[i];
-			Game endGame = gameHashTable[i];
-			while (endGame != null) {
-				endGame = endGame.getProximoGame();
-			}
-			this.ordenar(startGame, endGame);
-
-			Game game = gameHashTable[i];
-			while (game != null) {
-				try {
-					Game gameSemEncadeamento = (Game) game.clone();
-					gameSemEncadeamento.setProximoGame(null);
-					games.add(gameSemEncadeamento);
-				} catch (Exception e) {
-					e.printStackTrace();
+			try {
+				Game startGame = (Game) gameHashTable[i].clone();
+				Game endGame = (Game) gameHashTable[i].clone();
+				Game listaOrdenada = null;
+				while (endGame.getProximoGame() != null) {
+					endGame = (Game) endGame.getProximoGame().clone();
 				}
 
-				game = game.getProximoGame();
+				if (startGame.getProximoGame() != null) {
+					listaOrdenada = this.ordenar(startGame, endGame);
+				}
+
+				while (listaOrdenada != null) {
+					try {
+						Game gameSemEncadeamento = (Game) listaOrdenada.clone();
+						gameSemEncadeamento.setProximoGame(null);
+						games.add(gameSemEncadeamento);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					listaOrdenada = listaOrdenada.getProximoGame();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
 		return games;
 	}
 
-	private void ordenar(Game startGame, Game endGame) {
-		if (startGame == null || startGame == endGame || startGame == endGame.getProximoGame()) {
-			return;
+	private Game ordenar(Game startGame, Game endGame) {
+		if (startGame == null || startGame == endGame || startGame.compareTo(endGame.getProximoGame()) == 0) {
+			return null;
 		}
 
 		Game pivo = particionarLista(startGame, endGame);
@@ -183,10 +190,12 @@ public class AgendaGames implements AgendaGamesImpl {
 		} else if (pivo != null && pivo.getProximoGame() != null) {
 			this.ordenar(pivo.getProximoGame().getProximoGame(), endGame);
 		}
+
+		return startGame;
 	}
 
 	private Game particionarLista(Game startGame, Game endGame) {
-		if (startGame == endGame || startGame == null || endGame == null) {
+		if (startGame.compareTo(endGame.getProximoGame()) == 0 || startGame == null || endGame == null) {
 			return startGame;
 		}
 
@@ -194,7 +203,7 @@ public class AgendaGames implements AgendaGamesImpl {
 		Game atual = startGame;
 		Game gamePivo = endGame;
 
-		while (startGame != endGame) {
+		while (startGame.compareTo(endGame) != 0) {
 			if (startGame.compareTo(gamePivo) < 0) {
 				pivo = atual;
 				String temp = atual.getNome();

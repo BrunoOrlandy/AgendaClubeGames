@@ -73,6 +73,10 @@ public class Game implements Comparable<Game>, Cloneable {
 
 	@Override
 	public int compareTo(Game other) {
+		if (other == null) {
+			return 1;
+		}
+
 		return this.nome.compareTo(other.getNome());
 	}
 }
