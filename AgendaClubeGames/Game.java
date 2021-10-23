@@ -67,6 +67,23 @@ public class Game implements Comparable<Game>, Cloneable {
 	}
 
 	@Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("[nome=");
+        builder.append(nome);
+        builder.append(", data=");
+        builder.append(data);
+        builder.append(", horario=");
+        builder.append(horario);
+        builder.append(", categoria=");
+        builder.append(categoria);
+        builder.append(", link=");
+        builder.append(link);
+        builder.append("]");
+        return builder.toString();
+    }
+
+	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}

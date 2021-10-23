@@ -29,19 +29,19 @@ public class Main {
 				break;
 			case 3:
 				System.out.println("Informe o link para pesquisar o game:");
-				String linkInformado = entrada.nextLine();
+				String linkInformado = entrada.next();
 				printDados(agendaOperacoes.consultarGamesPorLink(linkInformado));
 				break;
 			case 4:
 				System.out.println("Informe a data do game:");
-				String dataGame = entrada.nextLine();
+				String dataGame = entrada.next();
 				agendaOperacoes.consultarGamesPorData(LocalDate.parse(dataGame));
 				break;
 			case 5:
 				System.out.println("Informe o nome do game a ser removido:");
-				String nomeGame = entrada.nextLine();
+				String nomeGame = entrada.next();
 				agendaOperacoes.removerGame(nomeGame);
-				return;
+				break;
 			case 0:
 				System.out.println("Fechando agenda de games");
 				System.exit(0);
@@ -64,7 +64,7 @@ public class Main {
 		System.out.println("Informe a data que o game ocorrerá: (dd/MM/yyyy)");
 		novoGame.setData(LocalDate.parse(scannerGame.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));
 
-		System.out.println("Informe o horário que o game ocorrerá");
+		System.out.println("Informe o horário que o game ocorrerá (00:00)");
 		novoGame.setHorario(LocalTime.parse(scannerGame.nextLine()));
 
 		System.out.println("Informe a categoria:");
