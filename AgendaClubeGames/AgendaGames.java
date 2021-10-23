@@ -178,14 +178,14 @@ public class AgendaGames implements AgendaGamesImpl {
 	}
 
 	private Game ordenar(Game startGame, Game endGame) {
-		if (startGame == null || startGame == endGame || startGame.compareTo(endGame.getProximoGame()) == 0) {
+		if (startGame == null || startGame.compareTo(endGame) == 0 || startGame.compareTo(endGame.getProximoGame()) == 0) {
 			return null;
 		}
 
 		Game pivo = particionarLista(startGame, endGame);
 		this.ordenar(startGame, pivo);
 
-		if (pivo != null && pivo == startGame) {
+		if (pivo != null && pivo.compareTo(startGame) == 0) {
 			this.ordenar(pivo.getProximoGame(), endGame);
 		} else if (pivo != null && pivo.getProximoGame() != null) {
 			this.ordenar(pivo.getProximoGame().getProximoGame(), endGame);
@@ -194,6 +194,7 @@ public class AgendaGames implements AgendaGamesImpl {
 		return startGame;
 	}
 
+	//Não conseguimos resolver, não está ordenando corretamente
 	private Game particionarLista(Game startGame, Game endGame) {
 		if (startGame.compareTo(endGame.getProximoGame()) == 0 || startGame == null || endGame == null) {
 			return startGame;
@@ -204,19 +205,19 @@ public class AgendaGames implements AgendaGamesImpl {
 		Game gamePivo = endGame;
 
 		while (startGame.compareTo(endGame) != 0) {
-			if (startGame.compareTo(gamePivo) < 0) {
+			if (startGame.compareTo(gamePivo) > 0) {
 				pivo = atual;
-				String temp = atual.getNome();
-				atual.setNome(startGame.getNome());
-				startGame.setNome(temp);
+				Game temp = atual;
+				atual = startGame;
+				startGame = temp;
 				atual = atual.getProximoGame();
 			}
 			startGame = startGame.getProximoGame();
 		}
 
-		String temp = atual.getNome();
-		atual.setNome(gamePivo.getNome());
-		endGame.setNome(temp);
+		Game temp = atual;
+		atual = gamePivo;
+		endGame = temp;
 
 		return pivo;
 	}
